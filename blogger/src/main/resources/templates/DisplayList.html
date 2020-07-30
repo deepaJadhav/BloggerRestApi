@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+
+    <style>
+body {
+  font-family: Arial;
+  padding: 20px;
+  background: #f1f1f1;
+}
+
+/* Header/Blog Title */
+.header {
+  padding: 30px;
+  font-size: 40px;
+  text-align: center;
+  background: white;
+}
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {
+  float: left;
+  width: 75%;
+}
+
+/* Right column */
+.rightcolumn {
+  float: left;
+  width: 25%;
+  padding-left: 20px;
+}
+
+/* Fake image */
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Add a card effect for articles */
+.card {
+  background-color: white;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+  margin-top: 20px;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+  .leftcolumn, .rightcolumn {
+    width: 100%;
+    padding: 0;
+  }
+}
+</style>
+</head>
+<script type="text/javascript">
+var app = angular.module("app", []);
+app.controller('myCtrl', function($scope, $http) {
+  $http.get("/blogs/listBlog")
+  .then(function(response) {
+    $scope.blogobj = response.data;
+  });
+});
+
+</script>
+</head>
+
+<body>
+<div class="header">
+    <h2>My Blogger </h2>
+</div>
+
+<div class="row">
+    <div class="leftcolumn">
+        <div class="card">
+            <h2>Welcome To Blog</h2>
+            <h5>Get Some motivation</h5>
+            <div class="fakeimg" style="height:50px;">Image
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div data-ng-app="app" data-ng-controller="myCtrl" class="container">
+
+
+    <div data-ng-repeat="blog in blogobj">
+<div class="rightcolumn">
+        <br ng-class='{blog:$first}' class="card">
+            <h2>About Me</h2>
+            First Name: {{blog.firstName}}
+        </br>
+            Last Name:  {{blog.lastName}}
+        </br>
+             Blog Id :  {{blog.id}}
+        </div>
+       </div>
+        </div>
+</div>
+
+
+        </br>
+        <div data-ng-repeat="post in blog.posts">
+            <div class="rightcolumn">
+            <div class="fakeimg"> {{post.postContent}}</div>
+            </div>
+        </div>
+
+
+
+
+ </div>
+   </div>
+
+
+</body>
+</html>
+
+</body>
+</html>
