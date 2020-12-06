@@ -29,13 +29,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .and()
                 .csrf().disable()
                 .formLogin().disable();
-                /*http
-                 .csrf().disable()
+                /*  @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
                 .authorizeRequests().anyRequest().authenticated()
-                .and()
-                .httpBasic();*/
+                .and().oauth2ResourceServer().jwt();
+    }*/
+                /*
+                #okta.oauth2.issuer=https://{yourOktaDomain}/oauth2/default
+#okta.oauth2.clientId={clientId}
+#okta.oauth2.clientSecret={clientSecret}
+#okta.oauth2.scope=openid
+                 */
     }
-  
+
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) 
             throws Exception 

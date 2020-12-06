@@ -69,9 +69,11 @@ public class PostController {
         if(!postOptional.isPresent()) {
             throw new PostNotFoundException();
         }
+        
         postRepository.save(postOptional.get());
         return post;
     }
+    
 
     @PostMapping("/posts/deletePost")
     String deletePost(@RequestBody PostContent postcontent) throws PostNotFoundException {

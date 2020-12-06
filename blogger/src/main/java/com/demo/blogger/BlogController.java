@@ -27,8 +27,8 @@ public class BlogController {
     @Autowired
     BlogRepository blogRepository;
 
-    @Autowired
-    PostRepository postRepository;
+   // @Autowired
+   // PostRepository postRepository;
 
 
     @GetMapping("/blogs/listBlog")
@@ -57,13 +57,13 @@ public class BlogController {
     }
 
     @PostMapping("/blogs/addupdateBlog")
-    Blog addPost(@RequestBody Blog blog) {
+    Blog updateBlog(@RequestBody Blog blog) {
         blogRepository.save(blog);
         return blog;
     }
 
     @PostMapping("/blogs/findById")
-    Blog addPost(@RequestParam Long id) throws BlogNotFoundException {
+    Blog getBlogById(@RequestParam Long id) throws BlogNotFoundException {
         Optional<Blog> blogOptional = blogRepository.findById(id);
         if(!blogOptional.isPresent())
             throw new BlogNotFoundException();
@@ -72,9 +72,15 @@ public class BlogController {
     }
 
     @PostMapping("/blogs/deleteBlog")
-    String deletePost(@RequestBody Blog blog) {
+    String deleteBlog(@RequestBody Blog blog) {
         blogRepository.deleteById(blog.getId());
         return "Success";
+    }
+
+    @PostMapping("/blog/TestBlog")
+     String testBlog(@RequestBody Blog b)
+    {
+        return "TestCase"+b.getLastName();
     }
 
 }
